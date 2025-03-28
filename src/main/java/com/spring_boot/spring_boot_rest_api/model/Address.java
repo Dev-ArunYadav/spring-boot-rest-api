@@ -1,5 +1,6 @@
 package com.spring_boot.spring_boot_rest_api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,8 +24,8 @@ public class Address {
     private String city;
     private String pincode;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private User user;
 
 }

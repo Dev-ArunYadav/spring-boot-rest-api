@@ -1,6 +1,7 @@
 package com.spring_boot.spring_boot_rest_api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring_boot.spring_boot_rest_api.enums.UserRoles;
 import com.spring_boot.spring_boot_rest_api.enums.UserStatus;
 import jakarta.persistence.*;
@@ -42,17 +43,19 @@ public class User {
     private String profession;
     private String financialYear;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id")
     private Address address;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "credentials_id")
+    private UserCredentials userCredentials;
 
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
     @Enumerated(EnumType.STRING)
     private UserRoles role;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private UserCredentials userCredentials;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -61,5 +64,4 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private LocalDateTime lastLoginAt;
 }

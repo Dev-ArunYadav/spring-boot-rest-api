@@ -1,5 +1,6 @@
 package com.spring_boot.spring_boot_rest_api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +26,8 @@ public class UserCredentials {
     private String verificationToken;
     private LocalDateTime tokenExpiry;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(mappedBy = "userCredentials")
+    @JsonBackReference
     private User user;
 
 }
