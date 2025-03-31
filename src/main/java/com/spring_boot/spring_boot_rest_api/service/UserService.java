@@ -1,6 +1,7 @@
 package com.spring_boot.spring_boot_rest_api.service;
 
 import com.spring_boot.spring_boot_rest_api.dto.LoginRequest;
+import com.spring_boot.spring_boot_rest_api.dto.UserDTO;
 import com.spring_boot.spring_boot_rest_api.enums.UserRoles;
 import com.spring_boot.spring_boot_rest_api.enums.UserStatus;
 import com.spring_boot.spring_boot_rest_api.model.User;
@@ -35,7 +36,12 @@ public class UserService {
         if (!passwordEncoder.matches(loginRequest.password(), user.getUserCredentials().getHashedPassword())) {
             throw new RuntimeException("Invalid Credentials");
         }
-        return jwtUtil.generateToken(user.getEmail());
+
+        if (user.getStatus() != UserStatus.ACTIVE) {
+            throw new RuntimeException("User is not active");
+        }
+
+        return jwtUtil.generateToken(user.getEmail(), user.getRole().name());
     }
 
 }

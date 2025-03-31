@@ -14,3 +14,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+logging:
+  level:
+    com:
+      spring_boot:
+        spring_boot_rest_api: INFO
+    org:
+      springframework:
+        web: ERROR
+      hibernate: ERROR
