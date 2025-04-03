@@ -35,7 +35,7 @@ public class UserFetchService {
                 .collect(Collectors.toList());
     }
 
-    public APIResponse<?> getAllUsersUnActive() {
+    public APIResponse<?> getAllUsersInActive() {
         logger.info("Fetching inactive users");
         List<User> users = userRepository.findByStatus(UserStatus.INACTIVE);
 

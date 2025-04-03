@@ -33,7 +33,7 @@ public class AdminController {
     @GetMapping("/inactive-subscribers")
     public ResponseEntity<?> getAllUsersUnActive() {
         logger.info("Received request to fetch inactive users");
-        APIResponse<?> response = userFetchService.getAllUsersUnActive();
+        APIResponse<?> response = userFetchService.getAllUsersInActive();
         logger.info("Response for fetching inactive users: {}", response.getMessage());
         return ResponseEntity.ok(response);
     }

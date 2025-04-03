@@ -1,13 +1,13 @@
 package com.spring_boot.spring_boot_rest_api.service;
 
 import com.spring_boot.spring_boot_rest_api.dto.LoginRequest;
-import com.spring_boot.spring_boot_rest_api.dto.UserDTO;
 import com.spring_boot.spring_boot_rest_api.enums.UserRoles;
 import com.spring_boot.spring_boot_rest_api.enums.UserStatus;
 import com.spring_boot.spring_boot_rest_api.model.User;
 import com.spring_boot.spring_boot_rest_api.repository.UserRepository;
 import com.spring_boot.spring_boot_rest_api.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +30,11 @@ public class UserService {
     }
 
     public String loginUser(LoginRequest loginRequest) {
-        User user = userRepository.findByEmail(loginRequest.email())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(loginRequest.email());
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + loginRequest.email());
+        }
 
         if (!passwordEncoder.matches(loginRequest.password(), user.getUserCredentials().getHashedPassword())) {
             throw new RuntimeException("Invalid Credentials");

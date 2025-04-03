@@ -21,17 +21,18 @@ public class UserUpdateService {
     public APIResponse<?> updateUser(Long userId, UserUpdateRequest request) {
         logger.info("Attempting to update user with ID: {}", userId);
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> {
-                    logger.error("User with ID {} not found", userId);
-                    return new UserNotFoundException("User not found");
-                });
-        user.setStatus(request.getStatus());
-        user.setFinancialYear(request.getFinancialYear());
+        // Call the custom query to update status and financial year
+        int rowsAffected = userRepository.updateUserStatusAndFinancialYear(
+                userId, request.getStatus(), request.getFinancialYear()
+        );
 
-        userRepository.save(user);
+        // If no rows are affected, it means the user ID does not exist
+        if (rowsAffected == 0) {
+            logger.error("User with ID {} not found for update", userId);
+            throw new UserNotFoundException("User not found");
+        }
 
         logger.info("User with ID {} successfully updated", userId);
-        return ResponseUtil.buildSuccessResponse("User updated successfully", user);
+        return ResponseUtil.buildSuccessResponse("User updated successfully", null);
     }
 }
