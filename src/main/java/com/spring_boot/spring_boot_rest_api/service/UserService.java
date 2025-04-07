@@ -1,12 +1,13 @@
 package com.spring_boot.spring_boot_rest_api.service;
 
-import com.spring_boot.spring_boot_rest_api.dto.LoginRequest;
+import com.spring_boot.spring_boot_rest_api.dto.request.LoginRequest;
 import com.spring_boot.spring_boot_rest_api.enums.UserRoles;
 import com.spring_boot.spring_boot_rest_api.enums.UserStatus;
 import com.spring_boot.spring_boot_rest_api.model.User;
 import com.spring_boot.spring_boot_rest_api.repository.UserRepository;
 import com.spring_boot.spring_boot_rest_api.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Cacheable(value = "users", key = "#loginRequest.email")
     public String loginUser(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.email());
 

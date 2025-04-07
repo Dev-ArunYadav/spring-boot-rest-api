@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table( name = "user",
         indexes = {
-                @Index(name = "idx_email", columnList = "email", unique = true),
-                @Index(name = "idx_phone", columnList = "phone", unique = true)
+                @Index(name = "idx_email", columnList = "email", unique = true)
         }
 )
 @lombok.Getter @lombok.Setter

@@ -18,7 +18,7 @@ public class JwtUtil {
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 Hour
-
+// header={alg=HS256},body={sub=ydv.arun182@gmail.com, role=ADMIN, iat=1743868605, exp=1743872205},signature=xkGoRO504uaLGPUVsHr5UkahAWSV27ceAN5E1NqWHQ4
     public String generateToken(String username, String role) {
         return Jwts.builder()
                 .setSubject(username)

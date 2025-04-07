@@ -1,5 +1,6 @@
 package com.spring_boot.spring_boot_rest_api.controller.admin;
 
+import com.spring_boot.spring_boot_rest_api.dto.request.UserUpdateRequest;
 import com.spring_boot.spring_boot_rest_api.service.admin.UserFetchService;
 import com.spring_boot.spring_boot_rest_api.service.admin.UserUpdateService;
 import com.spring_boot.spring_boot_rest_api.utils.APIResponse;

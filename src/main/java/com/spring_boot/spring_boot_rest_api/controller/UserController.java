@@ -1,6 +1,6 @@
 package com.spring_boot.spring_boot_rest_api.controller;
 
-import com.spring_boot.spring_boot_rest_api.dto.LoginRequest;
+import com.spring_boot.spring_boot_rest_api.dto.request.LoginRequest;
 import com.spring_boot.spring_boot_rest_api.model.User;
 import com.spring_boot.spring_boot_rest_api.service.UserService;
 import lombok.RequiredArgsConstructor;
